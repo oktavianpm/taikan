@@ -1,5 +1,4 @@
 pandas
 numpy
 pymongo
-streamlit_option_menu
 datetime
