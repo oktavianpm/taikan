@@ -1,1 +1,53 @@
+import streamlit as st
+from pymongo import MongoClient
+import time
+import datetime
+
+
+st.title('TA SAMPAH')
+def load_data():
+    client = MongoClient("mongodb+srv://kelompokpmc1:'88SAi}83}Jk);;@cluster0.jaqydiw.mongodb.net/?retryWrites=true&w=majority")
+    database = client['TA_Ikan']
+    list_collection = list(database.list_collection_names())
+    df = pd.DataFrame(columns=[])
+    query={}
+    for num, collection in enumerate(list_collection):
+        cursor = database[collection].find(query)
+        df =  df.append(list(cursor))
+    #ngubah tanggal ke format waktu
+    # df['Tanggal'] = pd.to_datetime(df['Tanggal']).dt.date
+    # df=df.sort_values(by='Tanggal')
+    # df.reset_index(inplace=True)
+    # df=df.drop(['_id','index','Unnamed: 0','level_0'],axis=1)
+    # return df
+
+data_sampah=load_data()
+# data_sampah.rename(columns = {'Longitude':'lon', 'Latitude':'lat'}, inplace = True)
+# #data_sampah
+
+# #dapetin data awal dan akhir
+# tanggal_data_awal = data_sampah['Tanggal'].iloc[0]
+# tanggal_data_akhir = data_sampah['Tanggal'].iloc[-1]
+
+
+# #tampilan pemilihan tanggal
+# tanggal_awal = st.date_input("Dari tanggal",tanggal_data_awal)
+# tanggal_akhir = st.date_input("Sampai tanggal",tanggal_data_akhir)
+# st.write(tanggal_data_awal)
+# st.write(tanggal_data_akhir)
+
+# #filter data
+# filtered_data_sampah = data_sampah[(data_sampah['Tanggal'] >= tanggal_awal)
+#                       & (data_sampah['Tanggal'] <= tanggal_akhir)]
+# st.write('Seluruh data')
+# st.map(data_sampah.iloc[:,[1,2]])
+# st.write('Data terfilter')
+# st.map(filtered_data_sampah.iloc[:,[1,2]])
+
+#tambah chart
+# data_sampah=data_sampah.melt(id_vars=['Tanggal','lon','lat'],var_name="Jenis",value_name="Jumlah")
+# fig = px.line(data_sampah, x='Tanggal', y='Jumlah', color='Jenis')
+# fig
+
+
 
