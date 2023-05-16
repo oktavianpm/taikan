@@ -14,11 +14,21 @@ im = Image.open("favicon.ico")
 st.set_page_config(
     page_title='SmartFishSense',
     page_icon=im,
-    layout='wide', #centered or wide
+    layout='centered', #centered or wide
     initial_sidebar_state='expanded',
 )
 
 st.title("SmartFishSense")
+
+# --- HIDE STREAMLIT STYLE ---
+# hide_st_style = """
+#             <style>
+#             #MainMenu {visibility: hidden;}
+#             footer {visibility: hidden;}
+#             header {visibility: hidden;}
+#             </style>
+#             """
+# st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # --- NAVIGATION MENU ---
 selected = option_menu(
@@ -46,10 +56,10 @@ statusx = 0
 confidencex = 0
 
 def add_data():
-    client = MongoClient(uri)
-    db = client.TA
-    coll = db.data1
-    # coll.drop()
+    # client = MongoClient(uri)
+    # db = client.TA
+    # coll = db.data1
+    # # coll.drop()
 
     timex = datetime.today()
     docs = [
@@ -58,10 +68,10 @@ def add_data():
     return docs
 
 def load_data():
-    client = MongoClient(uri)
-    db = client.TA
-    coll = db.data1
-    # coll.drop()
+    # client = MongoClient(uri)
+    # db = client.TA
+    # coll = db.data1
+    # # coll.drop()
     x = coll.find()
     df = pd.DataFrame(x)
     selected_columns = ['Date','Time','Status','Confidence']
